@@ -15,85 +15,95 @@ import java.net.URL;
 public class MainController {
 
     @FXML
-    private TextField cityInput;
+    private TextField cityInput; // TextField for user input
     @FXML
-    private ListView<String> timeListView;
+    private ListView<String> timeListView; // ListView to display the fetched data
 
-    private final String API_KEY = "o3DEjH43ju8GkPQOrvxojkrzrwSpXzDk2XKfliX0"; // Tu clave API
-    private final String API_URL = "https://api.api-ninjas.com/v1/worldtime"; // URL base de la API
+    private final String API_URL = "http://worldtimeapi.org/api/timezone"; // Base URL of the WorldTimeAPI
 
     @FXML
     public void fetchTime() {
-        String city = cityInput.getText().trim(); // Obtiene el texto ingresado
-        if (city.isEmpty()) {
-            showAlert("Input Error", "Please enter a timezone or city name."); // Muestra un error si el campo está vacío
+        // Retrieve user input and trim any extra spaces
+        String input = cityInput.getText().trim();
+        if (input.isEmpty()) {
+            showAlert("Input Error", "Please enter a valid timezone (e.g., America/Toronto).");
             return;
         }
 
-        // Formatea la entrada para que coincida con el formato esperado por la API
-        String formattedCity = "America/" + city.substring(0, 1).toUpperCase() + city.substring(1).toLowerCase();
-        String endpoint = API_URL + "?timezone=" + formattedCity;
+        // Construct the endpoint URL using the input
+        String endpoint = API_URL + "/" + input;
 
-        System.out.println("Request URL: " + endpoint); // Depuración de la URL
+        System.out.println("Request URL: " + endpoint); // Debugging output
 
         try {
-            // Configura la conexión
+            // Set up the HTTP connection
             URL url = new URL(endpoint);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("X-Api-Key", API_KEY); // Agrega la API Key al encabezado
             connection.setRequestMethod("GET");
 
-            // Obtiene el código de respuesta
+            // Process the API response
             int responseCode = connection.getResponseCode();
             if (responseCode == 200) {
-                // Lee la respuesta de la API
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                // Read the response from the API
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                 StringBuilder response = new StringBuilder();
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
                 }
-                in.close();
+                reader.close();
 
-                // Procesa el JSON de respuesta
+                // Parse the JSON response
                 JsonObject responseJson = JsonParser.parseString(response.toString()).getAsJsonObject();
-                String timezone = responseJson.get("timezone").getAsString();
-                String datetime = responseJson.get("datetime").getAsString();
-                String date = responseJson.get("date").getAsString();
-                String year = responseJson.get("year").getAsString();
-                String month = responseJson.get("month").getAsString();
-                String day = responseJson.get("day").getAsString();
-                String hour = responseJson.get("hour").getAsString();
-                String minute = responseJson.get("minute").getAsString();
-                String second = responseJson.get("second").getAsString();
-                String dayOfWeek = responseJson.get("day_of_week").getAsString();
+                displayTimeDetails(responseJson);
 
-                // Limpia el ListView antes de agregar nuevos datos
-                timeListView.getItems().clear();
-
-                // Agrega la información al ListView
-                timeListView.getItems().add("Timezone: " + timezone);
-                timeListView.getItems().add("Datetime: " + datetime);
-                timeListView.getItems().add("Date: " + date);
-                timeListView.getItems().add("Year: " + year);
-                timeListView.getItems().add("Month: " + month);
-                timeListView.getItems().add("Day: " + day);
-                timeListView.getItems().add("Hour: " + hour);
-                timeListView.getItems().add("Minute: " + minute);
-                timeListView.getItems().add("Second: " + second);
-                timeListView.getItems().add("Day of Week: " + dayOfWeek);
-
-            } else if (responseCode == 502) {
-                showAlert("API Error", "The server encountered a problem (502 Bad Gateway). Please try again later.");
+            } else if (responseCode == 404) {
+                // Handle not found errors (e.g., invalid timezone)
+                showAlert("API Error", "The specified timezone was not found. Please check your input.");
             } else {
+                // Handle other response codes
                 showAlert("API Error", "Failed to fetch time. Response Code: " + responseCode);
             }
         } catch (Exception e) {
-            showAlert("Error", "An error occurred: " + e.getMessage());
+            // Catch and handle any unexpected exceptions
+            showAlert("Error", "An unexpected error occurred: " + e.getMessage());
         }
     }
 
+    /**
+     * Parses and displays time details from the JSON response.
+     *
+     * @param responseJson The JSON object containing the API response.
+     */
+    private void displayTimeDetails(JsonObject responseJson) {
+        // Extract relevant details from the JSON response
+        String timezone = responseJson.get("timezone").getAsString();
+        String utcOffset = responseJson.get("utc_offset").getAsString();
+        String datetime = responseJson.get("datetime").getAsString();
+        int dayOfWeek = responseJson.get("day_of_week").getAsInt();
+        int dayOfYear = responseJson.get("day_of_year").getAsInt();
+        int weekNumber = responseJson.get("week_number").getAsInt();
+        boolean isDST = responseJson.get("dst").getAsBoolean();
+        String abbreviation = responseJson.get("abbreviation").getAsString();
 
+        // Clear the ListView and add new data
+        timeListView.getItems().clear();
+        timeListView.getItems().add("Timezone: " + timezone);
+        timeListView.getItems().add("UTC Offset: " + utcOffset);
+        timeListView.getItems().add("Datetime: " + datetime);
+        timeListView.getItems().add("Day of Week: " + dayOfWeek);
+        timeListView.getItems().add("Day of Year: " + dayOfYear);
+        timeListView.getItems().add("Week Number: " + weekNumber);
+        timeListView.getItems().add("DST: " + (isDST ? "Yes" : "No"));
+        timeListView.getItems().add("Abbreviation: " + abbreviation);
+    }
+
+    /**
+     * Shows an alert dialog with the specified title and content.
+     *
+     * @param title   The title of the alert.
+     * @param content The content/message of the alert.
+     */
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

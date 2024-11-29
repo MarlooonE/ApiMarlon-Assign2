@@ -1,37 +1,56 @@
 .header {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #5d4a33; /* Un marrón oscuro para el texto */
 }
 
 Button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
+    -fx-background-color: #d9a066; /* Amarillo terroso */
+    -fx-text-fill: #ffffff; /* Texto blanco para contraste */
     -fx-font-weight: bold;
     -fx-border-radius: 8px;
     -fx-padding: 10px;
     -fx-cursor: hand;
+    -fx-border-color: #b98348; /* Marrón para el borde */
 }
 
 Button:hover {
-    -fx-background-color: #2980b9;
+    -fx-background-color: #b98348; /* Marrón más oscuro al pasar el ratón */
+    -fx-text-fill: #ffffff; /* Mantén el texto blanco */
 }
 
 TextField {
-    -fx-border-color: #bdc3c7;
+    -fx-border-color: #bca584; /* Beige claro para el borde */
     -fx-border-radius: 8px;
     -fx-padding: 8px;
     -fx-font-size: 14px;
+    -fx-background-color: #fff5e1; /* Amarillo muy claro */
+    -fx-text-fill: #5d4a33; /* Marrón para el texto */
 }
 
 ListView {
-    -fx-border-color: #ecf0f1;
+    -fx-border-color: #e6d2b8; /* Beige para el borde */
     -fx-border-radius: 8px;
+    -fx-background-color: #fff8e5; /* Amarillo pálido */
+    -fx-text-fill: #5d4a33; /* Marrón para los ítems */
+    -fx-padding: 5px;
 }
 
 VBox {
-    -fx-background-color: #ecf0f1;
+    -fx-background-color: #f6e8d6; /* Fondo beige cálido */
     -fx-padding: 20px;
     -fx-spacing: 15px;
     -fx-border-radius: 10px;
+    -fx-border-color: #c9b59a; /* Marrón claro */
+}
+
+/* Opcional: estiliza los ítems seleccionados en la ListView */
+ListView .list-cell:selected {
+    -fx-background-color: #d9a066; /* Amarillo terroso para ítems seleccionados */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+}
+
+/* Personaliza el fondo completo de la aplicación */
+.root {
+    -fx-background-color: #efe6d5; /* Fondo general con un tono beige claro */
 }
