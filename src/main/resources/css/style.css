@@ -1,90 +1,73 @@
+.root {
+    -fx-background-color: #f2e8d5;
+    -fx-background-image: url('/images/map_texture.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-padding: 20px;
+}
+
 .header {
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #5d4a33;
+    -fx-text-fill: #4b3f2f;
+    -fx-padding: 10px 0;
 }
 
 Button {
-    -fx-background-color: #d9a066;
+    -fx-background-color: #a67c52;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-    -fx-border-radius: 8px;
-    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 20px;
     -fx-cursor: hand;
-    -fx-border-color: #b98348;
+    -fx-border-color: #8c644a;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
 }
 
 Button:hover {
-    -fx-background-color: #b98348;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #8c644a;
 }
 
 TextField {
-    -fx-border-color: #bca584;
-    -fx-border-radius: 8px;
-    -fx-padding: 8px;
-    -fx-font-size: 14px;
-    -fx-background-color: #fff5e1;
-    -fx-text-fill: #5d4a33;
+    -fx-border-color: #b89d82;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-size: 16px;
+    -fx-background-color: #f5efe6;
+    -fx-text-fill: #3e3225;
 }
 
 ListView {
-    -fx-border-color: #e6d2b8;
-    -fx-border-radius: 8px;
-    -fx-background-color: #fff8e5;
-    -fx-text-fill: #5d4a33;
-    -fx-padding: 5px;
-}
-
-VBox {
-    -fx-background-color: #f6e8d6;
-    -fx-padding: 20px;
-    -fx-spacing: 15px;
+    -fx-border-color: #b89d82;
     -fx-border-radius: 10px;
-    -fx-border-color: #c9b59a;
-}
-
-
-ListView .list-cell:selected {
-    -fx-background-color: #d9a066;
-    -fx-text-fill: #ffffff;
-}
-
-
-.root {
-    -fx-background-color: #efe6d5;
-
-}
-ListView .list-cell {
-    -fx-font-family: "Arial", sans-serif;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2d572c;
-    -fx-background-color: #f0f8e7;
+    -fx-background-color: #f9f4eb;
+    -fx-text-fill: #3e3225;
     -fx-padding: 10px;
-}
-
-ListView .list-cell:selected {
-    -fx-background-color: #2d572c;
-    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Georgia', serif;
+    -fx-font-size: 14px;
 }
 
 ListView .list-cell {
-    -fx-font-family: "Arial", sans-serif;
-    -fx-font-size: 14px;
     -fx-padding: 8px;
-    -fx-background-color: #f8f9fa;
-    -fx-border-color: #ddd;
+    -fx-background-color: transparent;
+    -fx-border-color: #dfd6c5;
     -fx-border-width: 0 0 1px 0;
 }
 
-ListView .list-cell:first-child {
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-background-color: #fefae0;
+ListView .list-cell:selected {
+    -fx-background-color: #8c644a;
+    -fx-text-fill: #ffffff;
 }
 
-ListView .list-cell:selected {
-    -fx-background-color: #2a9d8f;
-    -fx-text-fill: #ffffff;
+VBox {
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+    -fx-background-color: rgba(255, 248, 230, 0.9);
+    -fx-border-radius: 15px;
+    -fx-border-color: #c8b89c;
+    -fx-border-width: 2px;
+}
+
+ButtonBar {
+    -fx-spacing: 15px;
 }

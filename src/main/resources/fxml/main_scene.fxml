@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.demoapi.MainController" spacing="10" alignment="CENTER" stylesheets="@../css/style.css">
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.demoapi.MainController"
+      stylesheets="@../css/style.css"
+      spacing="20" alignment="CENTER">
 
     <Label text="World Time API" styleClass="header"/>
-    <TextField fx:id="cityInput" promptText="Enter city name"/>
+    <TextField fx:id="cityInput" promptText="Enter timezone or city"/>
     <Button text="Get Time" onAction="#fetchTime"/>
-    <Button text="Refresh" onAction="#refreshData"/>
     <Button text="Details" onAction="#goToDetails"/>
+    <Button text="Refresh" onAction="#refreshData"/>
     <ListView fx:id="timeListView" prefHeight="200"/>
-
-
-
-
-
 </VBox>
+
