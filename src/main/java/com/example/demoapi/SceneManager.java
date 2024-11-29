@@ -9,6 +9,16 @@ import java.io.IOException;
 
 public class SceneManager {
     private static Stage stage;
+    private static TimeInfo timeInfo;
+
+    public static void setTimeInfo(TimeInfo info) {
+        timeInfo = info;
+    }
+
+    public static TimeInfo getTimeInfo() {
+        return timeInfo;
+    }
+
 
     public static void setStage(Stage primaryStage) {
         stage = primaryStage;

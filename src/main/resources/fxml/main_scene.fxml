@@ -6,7 +6,11 @@
     <Label text="World Time API" styleClass="header"/>
     <TextField fx:id="cityInput" promptText="Enter city name"/>
     <Button text="Get Time" onAction="#fetchTime"/>
+    <Button text="Refresh" onAction="#refreshData"/>
+    <Button text="Details" onAction="#goToDetails"/>
     <ListView fx:id="timeListView" prefHeight="200"/>
+
+
 
 
 

@@ -5,10 +5,15 @@ import javafx.scene.control.Label;
 
 public class DetailsController {
     @FXML
-    private Label detailsLabel;
+    private Label detailsContent;
 
     @FXML
-    public void goBack() {
-        // Logic to navigate back to the main scene
+    public void initialize() {
+        TimeInfo timeInfo = SceneManager.getTimeInfo();
+        if (timeInfo != null) {
+            detailsContent.setText(timeInfo.toString());
+        } else {
+            detailsContent.setText("No details available.");
+        }
     }
 }
